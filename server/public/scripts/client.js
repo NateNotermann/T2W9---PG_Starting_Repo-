@@ -3,6 +3,7 @@ $(document).ready(onReady);
 function onReady() {
     getSongs();
     $('#add').on('click', postSong);
+    $('#songsTableBody').on('click', '.btn-delete', deleteSong);
 }
 
 // get artist data from the server
@@ -15,12 +16,20 @@ function getSongs() {
         console.log("GET /songs response", response);
         // append data to the DOM
         for (let i = 0; i < response.length; i++) {
+            console.log('response is:', response[i]);
             $('#songsTableBody').append(`
                 <tr>
                     <td>${response[i].artist}</td>
                     <td>${response[i].track}</td>
                     <td>${response[i].rank}</td>
                     <td>${response[i].published}</td>
+                    <td>
+                      <button 
+                        data-id=${response[i].id}
+                        class="btn-delete"
+                      >Delete</button>
+                      <button>Edit</button>
+                    </td>
                 </tr>
             `);
         }
@@ -44,5 +53,20 @@ function postSong() {
         $('#rank').val(''),
         $('#published').val('')
         getSongs();
+    });
+}
+
+function deleteSong() {
+    let songId = $(this).data('id');
+    $.ajax({
+        method: 'DELETE',
+        url: `/songs/${songId}`
+    })
+    .then(function(response) {
+        console.log('It is gone!');
+        getSongs();
+    })
+    .catch(function(error) {
+        alert('Error deleting:', error);
     });
 }

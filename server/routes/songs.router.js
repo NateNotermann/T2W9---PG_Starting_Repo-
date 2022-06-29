@@ -58,6 +58,36 @@ router.get('/', (req, res) => {
       });
 });
 
+// example: /songs/3
+router.get('/:id', (req, res) => {
+    // res.send(songs);
+    const idToGet = req.params.id;
+    let queryText = 'SELECT * FROM "songs" WHERE "id" = $1;';
+    pool.query(queryText, [idToGet])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log('Error in GET query:', error);
+        res.sendStatus(500);
+      });
+});
+
+// example: /songs/artist/Mahmoud
+router.get('/artist/:artist', (req, res) => {
+    // res.send(songs);
+    const artistToGet = req.params.artist;
+    let queryText = 'SELECT * FROM "songs" WHERE artist = $1;';
+    pool.query(queryText, [artistToGet])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log('Error in GET query:', error);
+        res.sendStatus(500);
+      });
+});
+
 router.post('/', (req, res) => {
     // songs.push(req.body);
     // res.sendStatus(200);
@@ -77,5 +107,20 @@ router.post('/', (req, res) => {
         res.sendStatus(500);
       })
 });
+
+router.delete('/:id', (req, res) => {
+    let reqId = req.params.id;
+    console.log(`Delete request sent for id ${reqId}`);
+    let queryText = 'DELETE FROM "songs" WHERE id = $1;';
+    pool.query(queryText, [reqId])
+      .then(() => {
+        console.log('Song deleted!');
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log(`Error deleting with query ${queryText}: ${error}`);
+        res.sendStatus(500); // good server always responds
+      })
+})
 
 module.exports = router;
