@@ -81,7 +81,7 @@ function deleteSong() {
     });
 }
 
-function voteOnSong () {
+function voteOnSong () { 
     let songId = $(this).data('id');
     let voteDirection = $(this).data('direction');
 
@@ -98,3 +98,16 @@ function voteOnSong () {
     })
 }
 
+// thingIn = true;
+// function checkThingIn (thingIn)
+// if ( thingIn === 'false' ){
+//     console.log( 'string of false');
+//     // if you want a string, run code here to do the next thing
+// } else if ( thingIn === false ) {
+//     console.log( 'boolean of false' );
+//       // if you want a false boolean, run code here to do the next thing
+// } else if ( thingIn === true ) {
+//     console.log( 'boolean of true' );
+// } else if ( thingIn === 'true' ){
+//     console.log( 'string of true');
+// }

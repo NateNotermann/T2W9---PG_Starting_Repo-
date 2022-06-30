@@ -123,7 +123,7 @@ router.delete('/:id', (req, res) => {
 })
 
 
-router.put('/rank/:id', (req, res) => {
+router.put('/rank/:id', (req, res) => { 
   let songId = req.params.id;
   //expect direction to go up or down
   let direction = req.body.direction;
