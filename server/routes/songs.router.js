@@ -23,6 +23,7 @@ const pool = require('../modules/pool');
 // pool.on('error', (error) => {
 //   console.log('Error with postgres pool', error);
 // });
+// adding more comments to commit test
 
 let songs = [{
     rank: 355,
